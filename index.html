@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Reliable under pressure</title>
+<style>
+@font-face { font-family: "Montserrat"; src: url("fonts/Montserrat-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("fonts/Montserrat-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("fonts/Montserrat-ExtraBold.ttf") format("truetype"); font-weight: 800; font-display: swap; }
+:root {
+  color-scheme: light;
+  --pink: #d8007f; --navy: #1c1f5e; --ink: #26262e; --muted: #5c606b; --line: #dcdde3; --tint: #f4f4f7; --sel: #fbe5f1; --bg: #ffffff;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.6 "Montserrat", Arial, sans-serif; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+@media (max-width: 600px) { .wrap { padding: 0 16px; } }
+a { color: var(--pink); }
+a:hover { color: var(--navy); }
+:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+header { border-bottom: 4px solid var(--pink); padding: 48px 0 32px; }
+h1 { margin: 0 0 16px; color: var(--navy); font-weight: 800; font-size: 40px; line-height: 1.1; }
+.intro { max-width: 760px; margin: 0 0 8px; font-size: 17px; }
+.entry { margin: 0; color: var(--muted); font-size: 14px; }
+@media (max-width: 600px) { h1 { font-size: 30px; } .intro { font-size: 16px; } }
+
+section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+h2 { margin: 0 0 8px; color: var(--navy); font-weight: 800; font-size: 24px; line-height: 1.25; }
+h3 { margin: 0 0 8px; color: var(--navy); font-weight: 800; font-size: 17px; }
+.sub { max-width: 760px; margin: 0 0 32px; color: var(--muted); font-size: 14px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.muted { color: var(--muted); }
+
+/* top 10 lists */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+@media (max-width: 860px) { .two { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+.t10head, .t10 { display: grid; grid-template-columns: 28px minmax(0, 1fr) minmax(64px, 150px) 52px 48px; gap: 12px; align-items: center; }
+@media (max-width: 600px) { .t10head, .t10 { grid-template-columns: 24px minmax(0, 1fr) 64px 48px 44px; gap: 8px; } }
+.t10head { padding: 0 0 8px; border-bottom: 2px solid var(--navy); color: var(--navy); font-size: 12px; font-weight: 600; }
+.t10 { width: 100%; padding: 8px 0; border: 0; border-bottom: 1px solid var(--line); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.t10:hover { background: var(--tint); }
+.t10 .rk { color: var(--pink); font-weight: 800; }
+.t10 .nm { font-weight: 600; }
+.bar { position: relative; height: 16px; }
+.bar .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.bar .ci { position: absolute; top: 7px; height: 2px; background: var(--navy); }
+.bar .dot { position: absolute; top: 4px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--pink); }
+.scale { display: flex; justify-content: space-between; margin-top: 8px; color: var(--muted); font-size: 12px; }
+
+/* explorer */
+.controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; margin: 0 0 16px; }
+.tabs { display: flex; border-bottom: 2px solid var(--line); }
+.tabs button { margin-bottom: -2px; padding: 8px 16px; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); font: 600 15px "Montserrat", Arial, sans-serif; cursor: pointer; }
+.tabs button[aria-pressed="true"] { border-bottom-color: var(--pink); color: var(--navy); }
+.tabs button:hover { color: var(--navy); }
+.search label { display: block; margin-bottom: 4px; color: var(--muted); font-size: 12px; font-weight: 600; }
+.search input { width: 240px; max-width: 100%; padding: 8px 12px; border: 1px solid #b9bbc4; border-radius: 4px; color: var(--ink); font: 400 15px "Montserrat", Arial, sans-serif; }
+.explore { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 32px; align-items: start; }
+@media (max-width: 980px) { .explore { grid-template-columns: 1fr; } }
+.scroll { max-height: 600px; overflow: auto; border: 1px solid var(--line); border-radius: 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+#players { min-width: 720px; }
+#players td:nth-child(2) { white-space: nowrap; font-weight: 600; }
+.scroll-x { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; }
+th { position: sticky; top: 0; z-index: 1; padding: 8px 10px; border-bottom: 2px solid var(--navy); background: var(--bg); color: var(--navy); font-size: 12px; font-weight: 600; text-align: left; white-space: nowrap; }
+th.num { text-align: right; }
+th button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+th button:hover { color: var(--pink); }
+td { padding: 8px 10px; border-bottom: 1px solid var(--line); }
+#players tbody tr { cursor: pointer; }
+#players tbody tr:hover td { background: var(--tint); }
+#players tbody tr.sel td { background: var(--sel); }
+td.rk { color: var(--pink); font-weight: 800; }
+.plain th { position: static; }
+.empty { padding: 16px 12px; color: var(--muted); }
+
+/* player detail */
+.detail { position: sticky; top: 16px; padding-top: 4px; }
+@media (max-width: 980px) { .detail { position: static; } }
+.detail h3 { font-size: 22px; line-height: 1.2; }
+.detail .role { margin: 0 0 4px; font-weight: 600; }
+.detail .teams { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+.detail .rrtag { margin: 0 0 16px; color: var(--pink); font-weight: 600; font-size: 14px; }
+dl { display: grid; grid-template-columns: minmax(0, 1fr) max-content; margin: 0 0 24px; font-size: 14px; }
+dt, dd { margin: 0; padding: 6px 0; border-bottom: 1px solid var(--line); }
+dt { color: var(--muted); padding-right: 16px; }
+dd { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.notes h4 { margin: 0 0 4px; color: var(--navy); font-size: 13px; font-weight: 800; }
+.notes p { margin: 0 0 16px; font-size: 14px; }
+
+/* squad and sensitivity */
+.callout { max-width: 860px; margin: 32px 0 16px; font-size: 16px; }
+.small { color: var(--muted); font-size: 13px; }
+.how p { max-width: 760px; }
+
+footer { padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Reliable under pressure</h1>
+    <p class="intro" id="intro"></p>
+    <p class="entry">A SupeRR Selector Season 2 Round 1 entry. The full method, checks and limitations are in the submitted report.</p>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <h2>Top 10 under pressure</h2>
+      <p class="sub" id="t10sub"></p>
+      <div class="two">
+        <div><h3>Batters</h3><div class="t10head"><span>#</span><span>Player</span><span>Rating ±1 s.e.</span><span class="num">Rating</span><span class="num">P(top 10)</span></div><div id="t10bat"></div><div class="scale" id="scalebat"></div></div>
+        <div><h3>Bowlers</h3><div class="t10head"><span>#</span><span>Player</span><span>Rating ±1 s.e.</span><span class="num">Rating</span><span class="num">P(top 10)</span></div><div id="t10bowl"></div><div class="scale" id="scalebowl"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="explore">
+    <div class="wrap">
+      <h2>Every ranked player</h2>
+      <p class="sub">Pressure and usual level are on the same scale as the rating, before shrinkage. Usual level uses the player's comparable non-pressure balls. Balls are pressure balls; SR and Conc./100 are runs per 100 pressure balls, with an average player's figure from the same states in brackets. Click a player for the detail.</p>
+      <div class="controls">
+        <div class="tabs" role="group" aria-label="Batters or bowlers">
+          <button type="button" data-side="bat" aria-pressed="true">Batters</button>
+          <button type="button" data-side="bowl" aria-pressed="false">Bowlers</button>
+        </div>
+        <div class="search"><label for="q">Find a player</label><input id="q" type="search" autocomplete="off" placeholder="Type a name"></div>
+      </div>
+      <div class="explore">
+        <div class="scroll"><table id="players"><thead></thead><tbody></tbody></table></div>
+        <aside class="detail" id="detail" aria-live="polite"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Where RR need it most</h2>
+      <p class="sub">The team mapping in the data pack lists RR's 2026 squad. These are the eligible RR players, rated the same way.</p>
+      <div class="two">
+        <div><h3>RR batters</h3><div class="scroll-x"><table class="plain" id="rrbat"></table></div></div>
+        <div><h3>RR bowlers</h3><div class="scroll-x"><table class="plain" id="rrbowl"></table></div></div>
+      </div>
+      <p class="callout" id="callout"></p>
+      <p class="how" id="picks"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>How much the lists move</h2>
+      <p class="sub">Each row changes one judgement call and counts how many of the ten names survive.</p>
+      <div class="scroll-x"><table class="plain" id="sens"></table></div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="wrap">
+      <h2>How the ranking works</h2>
+      <div id="how"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">SupeRR Selector Season 2, Round 1 entry. This is not an official Rajasthan Royals page. Figures are computed from the competition data pack.</div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  'use strict';
+  var D = window.DATA;
+  var SIDES = { bat: 'batters', bowl: 'bowlers' };
+  var state = { side: 'bat', sort: 'rank', dir: 1, q: '', sel: { bat: D.bat[0].name, bowl: D.bowl[0].name } };
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = text;
+    return e;
+  }
+  function sgn(v, d) { if (v === null || v === undefined) return ''; var s = v.toFixed(d || 0); return v > 0 ? '+' + s : s; }
+  function pct(v) { return v === null || v === undefined ? '' : Math.round(v * 100) + '%'; }
+  function n0(v) { return v === null || v === undefined ? '' : String(Math.round(v)); }
+  function fmt(v) { return v.toLocaleString('en-GB'); }
+  function pair(a, b) { return a === null ? '' : n0(a) + ' (' + n0(b) + ')'; }
+
+  // ---------- header ----------
+  var m = D.meta;
+  document.getElementById('intro').textContent = 'Pressure ratings for ' + D.bat.length + ' batters and ' + D.bowl.length +
+    ' bowlers, built from every ball of ' + fmt(m.matches) + ' completed IPL and T20I matches (' + fmt(m.balls) +
+    ' deliveries, 2022 to 2026). A pressure ball is one of the ' + m.pct + '% of deliveries that could swing the result the most.';
+  document.getElementById('t10sub').textContent = 'Rating is expected win-probability points added per 100 pressure balls, above an average player in the same situations. ' +
+    'The line shows ±1 standard error and P(top 10) is the share of ' + m.n_boot + ' match-level bootstrap resamples in which the player makes the top 10. Click a name for the detail.';
+
+  // ---------- top 10 ----------
+  function top10(side) {
+    var list = D[side].slice(0, 10), mount = document.getElementById('t10' + side);
+    var lo = Math.min(0, Math.min.apply(null, list.map(function (p) { return p.rating - p.se; })));
+    var hi = Math.max.apply(null, list.map(function (p) { return p.rating + p.se; }));
+    lo = Math.floor(lo / 10) * 10; hi = Math.ceil(hi / 10) * 10;
+    function x(v) { return ((v - lo) / (hi - lo) * 100) + '%'; }
+    list.forEach(function (p) {
+      var b = el('button', 't10'); b.type = 'button';
+      var bar = el('span', 'bar'), zero = el('span', 'zero'), ci = el('span', 'ci'), dot = el('span', 'dot');
+      bar.setAttribute('aria-hidden', 'true');
+      zero.style.left = x(0); ci.style.left = x(p.rating - p.se); ci.style.width = (2 * p.se / (hi - lo) * 100) + '%'; dot.style.left = x(p.rating);
+      bar.append(zero, ci, dot);
+      b.append(el('span', 'rk', p.rank), el('span', 'nm', p.name), bar, el('span', 'num', sgn(p.rating, 1)), el('span', 'num muted', pct(p.p10)));
+      b.setAttribute('aria-label', p.rank + '. ' + p.name + ', rating ' + sgn(p.rating, 1) + ', standard error ' + p.se.toFixed(1) + ', top 10 in ' + pct(p.p10) + ' of resamples');
+      b.addEventListener('click', function () {
+        state.q = ''; document.getElementById('q').value = '';
+        setSide(side); select(p.name);
+        document.getElementById('explore').scrollIntoView();
+      });
+      mount.append(b);
+    });
+    var sc = document.getElementById('scale' + side);
+    sc.append(el('span', null, 'Scale ' + sgn(lo) + ' to ' + sgn(hi) + ' points; the thin mark is zero'));
+  }
+
+  // ---------- explorer ----------
+  var COLS = {
+    bat: [['rank', '#'], ['name', 'Player'], ['rating', 'Rating'], ['se', 's.e.'], ['p10', 'P(top 10)'], ['pr', 'Pressure'], ['usual', 'Usual'], ['balls', 'Balls'], ['sr', 'SR (exp.)']],
+    bowl: [['rank', '#'], ['name', 'Player'], ['rating', 'Rating'], ['se', 's.e.'], ['p10', 'P(top 10)'], ['pr', 'Pressure'], ['usual', 'Usual'], ['balls', 'Balls'], ['sr', 'Conc./100 (exp.)']]
+  };
+  function cell(p, key) {
+    switch (key) {
+      case 'rank': return p.rank;
+      case 'name': return p.name;
+      case 'rating': return sgn(p.rating, 1);
+      case 'se': return p.se.toFixed(1);
+      case 'p10': return pct(p.p10);
+      case 'pr': case 'usual': return sgn(p[key]);
+      case 'balls': return p.balls;
+      case 'sr': return pair(p.sr, p.esr);
+    }
+  }
+  function renderHead() {
+    var tr = el('tr');
+    COLS[state.side].forEach(function (c) {
+      var th = el('th', c[0] === 'name' ? '' : 'num'), b = el('button', null, c[1]);
+      b.type = 'button';
+      if (state.sort === c[0]) { th.setAttribute('aria-sort', state.dir > 0 ? 'ascending' : 'descending'); b.textContent = c[1] + (state.dir > 0 ? ' ↑' : ' ↓'); }
+      b.addEventListener('click', function () {
+        if (state.sort === c[0]) state.dir = -state.dir;
+        else { state.sort = c[0]; state.dir = (c[0] === 'rank' || c[0] === 'name' || c[0] === 'se') ? 1 : -1; }
+        renderTable();
+      });
+      th.append(b); tr.append(th);
+    });
+    var thead = document.querySelector('#players thead'); thead.textContent = ''; thead.append(tr);
+  }
+  function renderTable() {
+    renderHead();
+    var q = state.q.trim().toLowerCase(), k = state.sort, dir = state.dir;
+    var list = D[state.side].filter(function (p) { return !q || p.name.toLowerCase().indexOf(q) >= 0; });
+    list.sort(function (a, b) {
+      var x = a[k], y = b[k];
+      if (k === 'name') return dir * x.localeCompare(y);
+      if (x === null) return 1; if (y === null) return -1;
+      return dir * (x - y) || a.rank - b.rank;
+    });
+    var tbody = document.querySelector('#players tbody'); tbody.textContent = '';
+    if (!list.length) { var tr0 = el('tr'), td0 = el('td', 'empty', 'No ranked ' + SIDES[state.side] + ' match that name.'); td0.colSpan = 9; tr0.append(td0); tbody.append(tr0); }
+    list.forEach(function (p) {
+      var tr = el('tr'); tr.tabIndex = 0;
+      if (p.name === state.sel[state.side]) { tr.className = 'sel'; tr.setAttribute('aria-selected', 'true'); }
+      COLS[state.side].forEach(function (c) { tr.append(el('td', c[0] === 'rank' ? 'num rk' : c[0] === 'name' ? '' : 'num', cell(p, c[0]))); });
+      tr.addEventListener('click', function () { select(p.name); });
+      tr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(p.name); } });
+      tbody.append(tr);
+    });
+  }
+  function gapText(p) {
+    if (p.z > 1.96) return 'clearly better';
+    if (p.z < -1.96) return 'clearly worse';
+    return 'within noise';
+  }
+  function rateWith(v, n) { return v === null ? 'no pressure balls' : sgn(v) + ' over ' + n0(n) + ' balls'; }
+  function renderDetail() {
+    var side = state.side, name = state.sel[side], all = D[side];
+    var p = all.filter(function (x) { return x.name === name; })[0];
+    var box = document.getElementById('detail'); box.textContent = '';
+    if (!p) return;
+    box.append(el('h3', null, p.name), el('p', 'role', p.role), el('p', 'teams', 'Teams in the data: ' + p.teams));
+    if (p.rr) box.append(el('p', 'rrtag', "In RR's 2026 squad"));
+    var dl = el('dl');
+    function row(k, v) { dl.append(el('dt', null, k), el('dd', null, v)); }
+    row('Rank', '#' + p.rank + ' of ' + all.length);
+    row('Rating', sgn(p.rating, 1) + ' ± ' + p.se.toFixed(1));
+    row('Top 10 in', pct(p.p10) + ' of resamples');
+    row('Pressure rate', sgn(p.pr));
+    row('Usual level', sgn(p.usual));
+    row('Pressure against usual', sgn(p.gap) + ', ' + gapText(p));
+    row('Pressure balls / innings', p.balls + ' / ' + p.inns);
+    if (side === 'bat') {
+      row('Strike rate (expected)', pair(p.sr, p.esr));
+      row('Balls per dismissal (expected)', p.bpd === null ? 'not out on pressure balls' : pair(p.bpd, p.ebpd));
+    } else {
+      row('Conceded per 100 balls (expected)', pair(p.sr, p.esr));
+      row('Balls per wicket (expected)', p.bpd === null ? 'no wickets on pressure balls' : pair(p.bpd, p.ebpd));
+    }
+    row('IPL rate', rateWith(p.ipl, p.n_ipl));
+    row('T20I rate', rateWith(p.t20i, p.n_t20i));
+    row('Pressure balls in chases', pct(p.chase));
+    row('Pressure balls at the death', pct(p.death));
+    row('Hit rate', pct(p.hit));
+    box.append(dl);
+    if (p.note) {
+      var n = el('div', 'notes');
+      n.append(el('h4', null, 'From the report'), el('p', null, p.note.evidence), el('h4', null, 'RR fit'), el('p', null, p.note.fit));
+      box.append(n);
+    }
+    box.append(el('p', 'small', 'T20I balls against associate teams count half, so T20I ball counts are weighted. Hit rate is the share of pressure innings with a non-negative contribution.'));
+  }
+  function select(name) { state.sel[state.side] = name; renderTable(); renderDetail(); if (window.innerWidth <= 980) document.getElementById('detail').scrollIntoView(); }
+  function setSide(side) {
+    state.side = side;
+    document.querySelectorAll('.tabs button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.side === side ? 'true' : 'false'); });
+    renderTable(); renderDetail();
+  }
+  document.querySelectorAll('.tabs button').forEach(function (b) { b.addEventListener('click', function () { setSide(b.dataset.side); }); });
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value; renderTable(); });
+
+  // ---------- RR squad ----------
+  function rrTable(side) {
+    var t = document.getElementById('rr' + side), head = el('tr');
+    ['Player', 'Role in the data', 'Rank', 'Rating', 'Pressure balls'].forEach(function (h, i) { head.append(el('th', i >= 2 ? 'num' : '', h)); });
+    var thead = el('thead'); thead.append(head);
+    var tbody = el('tbody');
+    D[side].filter(function (p) { return p.rr; }).forEach(function (p) {
+      var tr = el('tr');
+      tr.append(el('td', null, p.name), el('td', null, p.role.split(side === 'bat' ? ' · median' : ' · overs')[0]), el('td', 'num', '#' + p.rank + ' of ' + D[side].length),
+                el('td', 'num', sgn(p.rating, 1)), el('td', 'num', p.balls));
+      tbody.append(tr);
+    });
+    t.append(thead, tbody);
+  }
+  var co = document.getElementById('callout');
+  co.append(document.createTextNode(m.callout + ' '));
+  var a = el('a', null, 'Sports Yaari, 31 May 2026'); a.href = m.source; a.rel = 'noopener'; a.target = '_blank';
+  co.append('(', a, ')');
+  document.getElementById('picks').textContent = m.picks;
+
+  // ---------- sensitivity ----------
+  (function () {
+    var t = document.getElementById('sens'), head = el('tr');
+    [['Variant', ''], ['Batters kept', 'num'], ['Batters entering', ''], ['Bowlers kept', 'num'], ['Bowlers entering', '']].forEach(function (h) { head.append(el('th', h[1], h[0])); });
+    var thead = el('thead'); thead.append(head);
+    var tbody = el('tbody');
+    D.sens.forEach(function (r) {
+      var tr = el('tr');
+      tr.append(el('td', null, r.variant), el('td', 'num', r.bat_kept + '/10'), el('td', 'muted', r.bat_in), el('td', 'num', r.bowl_kept + '/10'), el('td', 'muted', r.bowl_in));
+      tbody.append(tr);
+    });
+    t.append(thead, tbody);
+  })();
+
+  // ---------- how ----------
+  var how = document.getElementById('how');
+  m.how.forEach(function (s) { how.append(el('p', null, s)); });
+  var ub = m.unavailable.bat[0], uw = m.unavailable.bowl[0];
+  how.append(el('p', null, 'Pakistan players are rated like everyone else but left out of the ranking, because they have not played in the IPL since 2008 and cannot be bought at the auction. The highest-rated of them are ' +
+    ub.name + ' (would rank #' + ub.rank + ' among batters) and ' + uw.name + ' (#' + uw.rank + ' among bowlers).'));
+  how.append(el('p', 'small', m.data_note));
+
+  top10('bat'); top10('bowl'); rrTable('bat'); rrTable('bowl');
+  renderTable(); renderDetail();
+})();
+</script>
+</body>
+</html>
