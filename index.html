@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Reliable under pressure</title>
+<title>Who RR should back under pressure</title>
 <style>
 @font-face { font-family: "Montserrat"; src: url("fonts/Montserrat-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Montserrat"; src: url("fonts/Montserrat-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
@@ -13,28 +13,28 @@
   color-scheme: light;
   --page: #f4f5f8; --surface: #ffffff; --line: #e2e3e8; --grid: #ecedf1; --axis: #b9bcc6;
   --navy: #1c1f5e; --ink: #26262e; --muted: #5c606b;
-  --top10: #d8007f; --rr: #4a51c4; --other: #a3a7b3; --sel: #fbe5f1; --hover: #f4f5f8;
+  --pink: #d8007f; --top10: #d8007f; --rr: #4a51c4; --other: #a3a7b3; --sel: #fbe5f1; --hover: #f4f5f8;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--page); color: var(--ink); font: 400 14px/1.5 "Montserrat", Arial, sans-serif; }
 button, input { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--top10); outline-offset: 2px; }
-a { color: var(--top10); }
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+a { color: var(--pink); }
 a:hover { color: var(--navy); }
 .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .muted { color: var(--muted); }
 
-/* app bar */
-.bar { background: var(--surface); border-bottom: 1px solid var(--line); }
-.bar-in { max-width: 1440px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; }
-.brand h1 { margin: 0; color: var(--navy); font-size: 22px; font-weight: 800; line-height: 1.2; }
-.brand p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+/* RR header band */
+.bar { background: var(--pink); color: #fff; }
+.bar-in { max-width: 1440px; margin: 0 auto; padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; }
+.brand h1 { margin: 0; font-size: 26px; font-weight: 800; line-height: 1.15; }
+.brand p { margin: 4px 0 0; max-width: 640px; font-size: 13px; }
 .stats { display: flex; flex-wrap: wrap; gap: 8px 0; margin: 0; padding: 0; list-style: none; }
-.stats li { padding: 0 20px; border-left: 1px solid var(--line); }
+.stats li { padding: 0 20px; border-left: 1px solid rgba(255, 255, 255, 0.45); }
 .stats li:first-child { border-left: 0; padding-left: 0; }
-.stats b { display: block; color: var(--navy); font-size: 20px; font-weight: 800; line-height: 1.2; }
-.stats span { color: var(--muted); font-size: 12px; }
+.stats b { display: block; font-size: 20px; font-weight: 800; line-height: 1.2; }
+.stats span { font-size: 12px; }
 
 /* filter row: one row, scopes everything below */
 .filters { max-width: 1440px; margin: 0 auto; padding: 16px 24px 0; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
@@ -54,15 +54,16 @@ a:hover { color: var(--navy); }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; min-width: 0; }
 .panel h2 { margin: 0; color: var(--navy); font-size: 16px; font-weight: 800; line-height: 1.3; }
 .panel .sub { margin: 2px 0 16px; color: var(--muted); font-size: 12px; }
+.full { grid-column: 1 / -1; }
 .col-l { grid-column: span 7; }
 .col-r { grid-column: span 5; }
 .col-l, .col-r { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-.p-rr, .p-table, .p-how { grid-column: span 12; }
 .rr-in { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: start; }
-.rr-in .callout { margin: 0; }
-@media (max-width: 1100px) { .col-l, .col-r, .grid > .panel { grid-column: 1 / -1; } .rr-in { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
+.rr-in .callout { margin: 0; font-size: 13px; }
+@media (max-width: 1100px) { .col-l, .col-r { grid-column: 1 / -1; } .rr-in { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
 @media (max-width: 600px) {
   .bar-in, .filters, .grid { padding-left: 16px; padding-right: 16px; }
+  .brand h1 { font-size: 22px; }
   .panel { padding: 16px; }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
   .stats li { padding: 0; border-left: 0; }
@@ -70,6 +71,32 @@ a:hover { color: var(--navy); }
   .find { flex: 1 1 100%; }
   .find input { width: 100%; min-width: 0; }
 }
+
+/* RR needs strip */
+.needs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.needs div { padding: 4px 20px; border-left: 1px solid var(--line); }
+.needs div:first-child { border-left: 0; padding-left: 0; }
+.needs b { display: block; color: var(--navy); font-size: 22px; font-weight: 800; line-height: 1.2; }
+.needs .what { display: block; margin: 2px 0 2px; color: var(--pink); font-size: 12px; font-weight: 800; }
+.needs span:last-child { color: var(--muted); font-size: 12px; }
+@media (max-width: 900px) { .needs { grid-template-columns: 1fr 1fr; gap: 16px 0; } .needs div:nth-child(3) { border-left: 0; padding-left: 0; } }
+@media (max-width: 480px) { .needs { grid-template-columns: 1fr; } .needs div { border-left: 0; padding: 0; } }
+
+/* shortlist cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 12px; }
+.card { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: start; width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left; cursor: pointer; }
+.card:hover { background: var(--hover); }
+.card[aria-pressed="true"] { background: var(--sel); }
+.card .cn { display: block; font-weight: 800; color: var(--navy); line-height: 1.25; }
+.card .cn small { margin-right: 6px; color: var(--pink); font-size: 13px; font-weight: 800; }
+.card .cr { display: block; color: var(--muted); font-size: 12px; }
+.card .cf { display: block; margin-top: 4px; font-size: 12px; font-weight: 600; }
+.card .cv { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+.card .cv b { color: var(--ink); font-size: 14px; font-weight: 800; }
+
+/* avatars: free-licensed photo, or initials */
+.av { display: inline-flex; flex: none; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 800; }
+.av img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* charts */
 .chart { width: 100%; }
@@ -81,7 +108,7 @@ a:hover { color: var(--navy); }
 .chart text.halo { paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
 .colhead { display: flex; justify-content: flex-end; gap: 20px; color: var(--muted); font-size: 11px; font-weight: 600; margin-bottom: 2px; }
 .row-g { cursor: pointer; outline: none; }
-.row-g:focus-visible .hit { stroke: var(--top10); stroke-width: 2; }
+.row-g:focus-visible .hit { stroke: var(--navy); stroke-width: 2; }
 
 /* tooltip */
 #tip { position: fixed; z-index: 10; pointer-events: none; display: none; max-width: 280px; padding: 8px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 2px 8px rgba(28, 31, 94, 0.12); font-size: 12px; }
@@ -91,10 +118,11 @@ a:hover { color: var(--navy); }
 #tip .lk { width: 12px; height: 2px; flex: none; }
 
 /* profile */
+.phead { display: flex; gap: 16px; align-items: center; }
 .pname { margin: 0; color: var(--navy); font-size: 24px; font-weight: 800; line-height: 1.2; }
 .prole { margin: 4px 0 0; font-weight: 600; }
 .pteams { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
-.ptag { display: block; margin-top: 6px; color: var(--rr); font-size: 12px; font-weight: 800; }
+.pfill { margin: 6px 0 0; font-size: 12px; font-weight: 800; color: var(--navy); }
 .figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 16px 0 4px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .figs div { padding: 10px 10px; border-left: 1px solid var(--line); }
 .figs div:first-child { border-left: 0; padding-left: 0; }
@@ -114,6 +142,7 @@ a:hover { color: var(--navy); }
 .kv dd { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
 .pnote h4 { margin: 16px 0 4px; color: var(--navy); font-size: 12px; font-weight: 800; }
 .pnote p { margin: 0; font-size: 13px; }
+.pcred { margin: 12px 0 0; color: var(--muted); font-size: 11px; }
 
 /* sensitivity rows */
 .srow { display: grid; grid-template-columns: minmax(0, 210px) minmax(0, 1fr) 40px; gap: 10px; align-items: center; padding: 4px 4px; border-radius: 4px; font-size: 12px; }
@@ -127,23 +156,25 @@ a:hover { color: var(--navy); }
 
 /* table */
 .scroll { max-height: 520px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; }
-table { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px; }
+table { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 13px; }
 th { position: sticky; top: 0; z-index: 1; padding: 8px 10px; background: var(--surface); border-bottom: 2px solid var(--navy); color: var(--navy); font-size: 11px; font-weight: 600; text-align: left; white-space: nowrap; }
 th.num { text-align: right; }
 th button { padding: 0; border: 0; background: none; font-weight: 600; cursor: pointer; }
-th button:hover { color: var(--top10); }
-td { padding: 7px 10px; border-bottom: 1px solid var(--line); }
+th button:hover { color: var(--pink); }
+td { padding: 6px 10px; border-bottom: 1px solid var(--line); }
 tbody tr { cursor: pointer; }
 tbody tr:hover td { background: var(--hover); }
 tbody tr.sel td { background: var(--sel); }
-td.rk { color: var(--top10); font-weight: 800; }
+td.rk { color: var(--pink); font-weight: 800; }
 td.nm { font-weight: 600; white-space: nowrap; }
+td.nm .in { display: flex; align-items: center; gap: 8px; }
 .tag { margin-left: 6px; color: var(--rr); font-size: 11px; font-weight: 800; }
 
 .how { columns: 2 380px; column-gap: 32px; font-size: 13px; }
 .how p { margin: 0 0 10px; break-inside: avoid; }
 .how .small { color: var(--muted); font-size: 12px; }
-.callout { margin: 16px 0 0; font-size: 13px; }
+.credits { columns: 3 300px; column-gap: 32px; margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 11px; }
+.credits li { margin: 0 0 6px; break-inside: avoid; }
 footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--muted); font-size: 12px; }
 </style>
 </head>
@@ -151,8 +182,8 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
 <header class="bar">
   <div class="bar-in">
     <div class="brand">
-      <h1>Reliable under pressure</h1>
-      <p>SupeRR Selector Season 2, Round 1 entry. Pressure ratings for IPL and T20I players, 2022 to 2026.</p>
+      <h1>Who RR should back under pressure</h1>
+      <p>An IPL 2027 auction shortlist for Rajasthan Royals, built from every ball of IPL and T20I cricket from 2022 to 2026. SupeRR Selector Season 2, Round 1 entry.</p>
     </div>
     <ul class="stats" id="stats"></ul>
   </div>
@@ -164,7 +195,7 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
     <button type="button" data-side="bowl" aria-pressed="false">Bowlers</button>
   </div>
   <div class="find"><label for="q">Find a player</label><input id="q" type="search" autocomplete="off" placeholder="Type a name, press Enter"></div>
-  <ul class="legend" aria-label="Colour key">
+  <ul class="legend" aria-label="Colour key for the charts">
     <li><span class="key" style="background: var(--top10)"></span>Top 10</li>
     <li><span class="key" style="background: var(--rr)"></span>RR 2026 squad, outside the top 10</li>
     <li><span class="key" style="background: var(--other)"></span>Other ranked players</li>
@@ -172,46 +203,63 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
 </div>
 
 <main class="grid">
+  <section class="panel full" aria-labelledby="h-needs">
+    <h2 id="h-needs">What RR need</h2>
+    <p class="sub">RR's own 2026 squad, rated by the same method as everyone else. The squad comes from the data pack's team mapping.</p>
+    <div class="needs" id="needs"></div>
+  </section>
+
+  <section class="panel full" aria-labelledby="h-cards">
+    <h2 id="h-cards"></h2>
+    <p class="sub">Ranked on output under pressure. Each card says which RR need the player would fill. Click a player for the full profile.</p>
+    <div class="cards" id="cards"></div>
+  </section>
+
   <div class="col-l">
-  <section class="panel p-lead" aria-labelledby="h-lead">
-    <h2 id="h-lead"></h2>
-    <p class="sub">Rating with ±1 standard error, in win-probability points added per 100 pressure balls above an average player in the same situations. P(top 10) is the share of bootstrap resamples that keep the player in the top 10.</p>
-    <div class="colhead"><span>Rating</span><span>P(top 10)</span></div>
-    <div class="chart" id="lead"></div>
-  </section>
-
-  <section class="panel p-scat" aria-labelledby="h-scat">
-    <h2 id="h-scat">Pressure rate against usual level</h2>
-    <p class="sub">Every ranked player, before shrinkage. Points above the diagonal did better under pressure than on their comparable ordinary balls. Numbers mark the top 10; click any point to open the player.</p>
-    <div class="chart" id="scat"></div>
-  </section>
+    <section class="panel" aria-labelledby="h-lead">
+      <h2 id="h-lead"></h2>
+      <p class="sub">Rating with ±1 standard error, in win-probability points added per 100 pressure balls above an average player in the same situations. P(top 10) is the share of bootstrap resamples that keep the player in the top 10.</p>
+      <div class="colhead"><span>Rating</span><span>P(top 10)</span></div>
+      <div class="chart" id="lead"></div>
+    </section>
+    <section class="panel" aria-labelledby="h-scat">
+      <h2 id="h-scat">Pressure rate against usual level</h2>
+      <p class="sub">Every ranked player, before shrinkage. Points above the diagonal did better under pressure than on their comparable ordinary balls. Numbers mark the top 10; click any point to open the player.</p>
+      <div class="chart" id="scat"></div>
+    </section>
   </div>
+
   <div class="col-r">
-  <section class="panel p-prof" aria-labelledby="pname" aria-live="polite" id="profile"></section>
-  <section class="panel p-sens" aria-labelledby="h-sens">
-    <h2 id="h-sens">How much the list moves</h2>
-    <p class="sub">Each row changes one judgement call. The bar counts how many of the ten names survive; hover or focus a row to see who comes in.</p>
-    <div id="sens"></div>
-  </section>
+    <section class="panel" aria-labelledby="pname" aria-live="polite" id="profile"></section>
+    <section class="panel" aria-labelledby="h-sens">
+      <h2 id="h-sens">How much the list moves</h2>
+      <p class="sub">Each row changes one judgement call. The bar counts how many of the ten names survive; hover or focus a row to see who comes in.</p>
+      <div id="sens"></div>
+    </section>
   </div>
 
-  <section class="panel p-rr" aria-labelledby="h-rr">
-    <h2 id="h-rr">Where RR need it most</h2>
+  <section class="panel full" aria-labelledby="h-rr">
+    <h2 id="h-rr">RR's squad against the top 10 cut</h2>
     <p class="sub" id="rrsub"></p>
     <div class="rr-in"><div class="chart" id="rr"></div><p class="callout" id="callout"></p></div>
   </section>
 
-
-  <section class="panel p-table" aria-labelledby="h-table">
+  <section class="panel full" aria-labelledby="h-table">
     <h2 id="h-table"></h2>
     <p class="sub">Sort by any column. Pressure, Usual, IPL and T20I are on the rating scale before shrinkage. SR and Conc./100 are runs per 100 pressure balls, with an average player's figure from the same states in brackets.</p>
     <div class="scroll"><table id="players"><thead></thead><tbody></tbody></table></div>
   </section>
 
-  <section class="panel p-how" aria-labelledby="h-how">
+  <section class="panel full" aria-labelledby="h-how">
     <h2 id="h-how">How the ranking works</h2>
     <p class="sub">From the methodology report submitted with this entry.</p>
     <div class="how" id="how"></div>
+  </section>
+
+  <section class="panel full" aria-labelledby="h-cred">
+    <h2 id="h-cred">Photo credits</h2>
+    <p class="sub">Only freely licensed photos from Wikimedia Commons are used, cropped to a square. Players without one are shown by their initials.</p>
+    <ul class="credits" id="credits"></ul>
   </section>
 </main>
 
@@ -222,7 +270,7 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
 <script>
 (function () {
   'use strict';
-  var D = window.DATA, M = D.meta;
+  var D = window.DATA, M = D.meta, N = M.needs, PH = M.photos || {};
   var NS = 'http://www.w3.org/2000/svg';
   var C = { top10: '#d8007f', rr: '#4a51c4', other: '#a3a7b3', grid: '#ecedf1', axis: '#b9bcc6', navy: '#1c1f5e', ink: '#26262e', muted: '#5c606b', sel: '#fbe5f1', hover: '#f4f5f8', pp: '#9ea2d8', mid: '#5b61be', death: '#1c1f5e' };
   var WORD = { bat: 'batters', bowl: 'bowlers' };
@@ -250,6 +298,13 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
     var parts = t.textContent.split(' ');
     if (parts.length > 1) { t.textContent = parts[0][0] + '. ' + parts.slice(1).join(' '); if (t.getComputedTextLength() <= maxW) return; }
     var s = t.textContent; while (s.length > 3 && t.getComputedTextLength() > maxW) { s = s.slice(0, -1); t.textContent = s + '…'; }
+  }
+  function avatar(name, size) {             // free-licensed photo when we have one, otherwise initials
+    var a = el('span', 'av'); a.style.width = a.style.height = size + 'px'; a.style.fontSize = Math.round(size * 0.36) + 'px';
+    var ph = PH[name];
+    if (ph) { var img = el('img'); img.src = ph.file; img.alt = ''; img.loading = 'lazy'; img.width = size; img.height = size; a.append(img); }
+    else { a.textContent = name.split(' ').map(function (w) { return w[0]; }).slice(0, 2).join(''); a.setAttribute('aria-hidden', 'true'); }
+    return a;
   }
 
   // ---------- tooltip ----------
@@ -289,7 +344,7 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
   function select(name, scroll) {
     state.sel[state.side] = name;
     renderAll();
-    if (scroll && window.innerWidth <= 1100) $('profile').scrollIntoView();
+    if (scroll) { var r = $('profile').getBoundingClientRect(); if (r.top < 0 || r.top > window.innerHeight * 0.6) $('profile').scrollIntoView(); }
   }
   function setSide(side) {
     state.side = side;
@@ -297,19 +352,43 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
     renderAll();
   }
 
-  // ---------- header figures ----------
+  // ---------- header figures and RR needs (fixed) ----------
   (function () {
     var s = $('stats');
     [[M.matches.toLocaleString('en-GB'), 'matches (' + M.n_ipl + ' IPL, ' + M.n_t20i + ' T20I)'], [M.balls.toLocaleString('en-GB'), 'deliveries'],
      [M.pct + '%', 'of balls flagged as pressure'], [D.bat.length + ' / ' + D.bowl.length, 'batters / bowlers ranked']].forEach(function (f) {
       var li = el('li'); li.append(el('b', null, f[0]), el('span', null, f[1])); s.append(li);
     });
+    var rest = N.seam_rest;
+    [['Openers', N.openers.map(function (o) { return '#' + o.rank; }).join(' and '), N.openers.map(function (o) { return o.name; }).join(' and ') + ' already rate well among ' + N.n_bat + ' batters.'],
+     ['Middle order', '#' + N.mid_avg + ' of ' + N.n_bat, 'is the average rank of RR\'s ' + N.mid_n + ' batters who come in at No. 4 or lower.'],
+     ['Seam', '#' + rest[0] + ' to #' + rest[rest.length - 1], 'is where RR\'s seamers rank after ' + N.seam_best.name + ' (#' + N.seam_best.rank + '), among ' + N.n_bowl + ' bowlers.'],
+     ['In this shortlist', N.mid_targets + ' and ' + N.seam_targets, 'middle-order batters and seamers in our top 10s who could fill those two gaps.']].forEach(function (f) {
+      var d = el('div'); d.append(el('span', 'what', f[0]), el('b', null, f[1]), el('span', null, f[2])); $('needs').append(d);
+    });
   })();
 
-  // ---------- top 10 leaderboard ----------
+  // ---------- shortlist cards ----------
+  function drawCards() {
+    var box = $('cards'); box.textContent = '';
+    $('h-cards').textContent = 'Auction shortlist: top 10 ' + WORD[state.side];
+    cur().slice(0, 10).forEach(function (p) {
+      var b = el('button', 'card'); b.type = 'button'; b.setAttribute('aria-pressed', p.name === state.sel[state.side] ? 'true' : 'false');
+      var body = el('span'), nm = el('span', 'cn'), rk = el('small', null, '#' + p.rank);
+      nm.append(rk, document.createTextNode(p.name));
+      var cv = el('span', 'cv'), rb = el('b', null, sgn(p.rating, 1));
+      cv.append(rb, document.createTextNode(' ±' + p.se.toFixed(1) + ' · top 10 in ' + pct(p.p10)));
+      body.append(nm, el('span', 'cr', p.short), el('span', 'cf', p.fills), cv);
+      b.append(avatar(p.name, 56), body);
+      b.addEventListener('click', function () { select(p.name, true); });
+      box.append(b);
+    });
+  }
+
+  // ---------- top 10 rating chart ----------
   function drawLead() {
     var box = $('lead'); box.textContent = '';
-    $('h-lead').textContent = 'Top 10 ' + WORD[state.side] + ' under pressure';
+    $('h-lead').textContent = 'Top 10 ' + WORD[state.side] + ': rating and uncertainty';
     var list = cur().slice(0, 10), W = box.clientWidth, rowH = 34, top = 4, axisH = 26;
     var nameW = Math.max(118, Math.min(200, W * 0.3)), x0 = nameW + 8, x1 = W - (W < 420 ? 96 : 116);
     var t = nice(Math.min(0, Math.min.apply(null, list.map(function (p) { return p.rating - p.se; }))), Math.max.apply(null, list.map(function (p) { return p.rating + p.se; })), W < 420 ? 3 : 5);
@@ -399,8 +478,8 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
   function drawRR() {
     var box = $('rr'); box.textContent = '';
     var all = cur(), list = all.filter(function (p) { return p.rr; }), cut = all[9].rating, one = WORD[state.side].slice(0, -1);
-    $('rrsub').textContent = "RR's 2026 " + WORD[state.side] + ' in the rankings, against the rating of the #10 ' + one + ' (' + sgn(cut, 1) + '). The squad comes from the data pack\'s team mapping.';
-    var W = box.clientWidth, rowH = 28, top = 22, axisH = 24, nameW = Math.max(104, Math.min(150, W * 0.3)), x0 = nameW + 8, x1 = W - 64;
+    $('rrsub').textContent = "RR's 2026 " + WORD[state.side] + ' in the rankings, against the rating of the #10 ' + one + ' (' + sgn(cut, 1) + '). Click a bar to open the player.';
+    var W = box.clientWidth, rowH = 32, top = 22, axisH = 24, nameW = Math.max(130, Math.min(190, W * 0.3)), x0 = nameW + 8, x1 = W - 64;
     var rs = list.map(function (p) { return p.rating; });
     var t = nice(Math.min(0, Math.min.apply(null, rs)), Math.max(cut, Math.max.apply(null, rs)), W < 420 ? 3 : 5);
     var lo = t[0], hi = t[t.length - 1], sx = function (v) { return x0 + (v - lo) / (hi - lo) * (x1 - x0); };
@@ -417,14 +496,23 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
       var g = sv('g', { class: 'row-g', tabindex: 0, role: 'button', 'aria-label': p.name + ', #' + p.rank + ', rating ' + sgn(p.rating, 1) });
       var hit = sv('rect', { class: 'hit', x: 0, y: y + 1, width: W, height: rowH - 2, rx: 4, fill: isSel ? C.sel : 'transparent' });
       g.append(hit);
-      var nm = sv('text', { x: 4, y: cy + 4, 'font-size': 12, 'font-weight': 600 }); nm.textContent = p.name; g.append(nm);
+      var ph = PH[p.name];
+      if (ph) {
+        var cid = 'c' + state.side + i;
+        var cp = sv('clipPath', { id: cid }); cp.append(sv('circle', { cx: 15, cy: cy, r: 12 })); g.append(cp);
+        var im = sv('image', { href: ph.file, x: 3, y: cy - 12, width: 24, height: 24, 'clip-path': 'url(#' + cid + ')', preserveAspectRatio: 'xMidYMid slice' }); g.append(im);
+      } else {
+        g.append(sv('circle', { cx: 15, cy: cy, r: 12, fill: C.navy }));
+        var it = sv('text', { x: 15, y: cy + 4, 'text-anchor': 'middle', 'font-size': 9, 'font-weight': 800, fill: '#fff' }); it.textContent = p.name.split(' ').map(function (w) { return w[0]; }).slice(0, 2).join(''); g.append(it);
+      }
+      var nm = sv('text', { x: 34, y: cy + 4, 'font-size': 12, 'font-weight': 600 }); nm.textContent = p.name; g.append(nm);
       var b0 = sx(0), b1 = sx(p.rating);
       if (Math.abs(b1 - b0) >= 1) g.append(sv('path', { d: barPath(b0, b1, cy, 12), fill: p.rank <= 10 ? C.top10 : C.rr }));
       var vt = sv('text', { x: Math.max(b0, b1) + 6, y: cy + 4, 'font-size': 11, 'font-weight': 600, class: 'halo' }); vt.textContent = sgn(p.rating, 1) + '  #' + p.rank; g.append(vt);
-      svg.append(g); fitText(nm, nameW - 4);
+      svg.append(g); fitText(nm, nameW - 34);
       rowEvents(g, hit, p, isSel, [{ l: p.role }]);
     });
-    var cl = sv('text', { x: sx(cut), y: top - 10, 'text-anchor': sx(cut) > W - 70 ? 'end' : 'middle', 'font-size': 11, 'font-weight': 800, fill: C.navy }); cl.textContent = 'Top 10 cut ' + sgn(cut, 1); svg.append(cl);
+    var cl = sv('text', { x: sx(cut), y: top - 10, 'text-anchor': sx(cut) > W - 70 ? 'end' : 'middle', 'font-size': 11, 'font-weight': 800, fill: C.navy, class: 'halo' }); cl.textContent = 'Top 10 cut ' + sgn(cut, 1); svg.append(cl);
   }
 
   // ---------- sensitivity ----------
@@ -456,9 +544,9 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
   function drawProfile() {
     var box = $('profile'); box.textContent = '';
     var p = byName(state.sel[state.side]); if (!p) return;
-    var all = cur(), h = el('h2', 'pname', p.name); h.id = 'pname';
-    box.append(h, el('p', 'prole', p.role), el('p', 'pteams', 'Teams in the data: ' + p.teams));
-    if (p.rr) box.append(el('span', 'ptag', "In RR's 2026 squad"));
+    var all = cur(), head = el('div', 'phead'), txt = el('div'), h = el('h2', 'pname', p.name); h.id = 'pname';
+    txt.append(h, el('p', 'prole', p.role), el('p', 'pteams', 'Teams in the data: ' + p.teams), el('p', 'pfill', 'For RR: ' + (p.fills === 'Already at RR' ? 'already in the 2026 squad' : p.fills[0].toLowerCase() + p.fills.slice(1))));
+    head.append(avatar(p.name, 88), txt); box.append(head);
     var figs = el('div', 'figs');
     [['#' + p.rank, 'of ' + all.length + ' ' + WORD[state.side]], [sgn(p.rating, 1), 'rating, ±' + p.se.toFixed(1)], [pct(p.p10), 'top 10 in resamples'], [String(p.balls), 'pressure balls']].forEach(function (f) {
       var d = el('div'); d.append(el('b', null, f[0]), el('span', null, f[1])); figs.append(d);
@@ -520,6 +608,8 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
       n.append(el('h4', null, 'From the report'), el('p', null, p.note.evidence), el('h4', null, 'RR fit'), el('p', null, p.note.fit));
       box.append(n);
     }
+    var ph = PH[p.name];
+    if (ph) box.append(el('p', 'pcred', 'Photo: ' + ph.artist + ', ' + ph.license + ', via Wikimedia Commons (cropped).'));
   }
 
   // ---------- table ----------
@@ -529,7 +619,7 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
   };
   function cell(p, k) {
     switch (k) {
-      case 'rank': return p.rank; case 'name': return p.name; case 'rating': return sgn(p.rating, 1); case 'se': return p.se.toFixed(1);
+      case 'rank': return p.rank; case 'rating': return sgn(p.rating, 1); case 'se': return p.se.toFixed(1);
       case 'p10': return pct(p.p10); case 'pr': case 'usual': case 'ipl': case 't20i': return sgn(p[k]);
       case 'balls': return p.balls; case 'sr': return pair(p.sr, p.esr);
     }
@@ -561,8 +651,12 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
       var tr = el('tr'); tr.tabIndex = 0;
       if (p.name === state.sel[state.side]) { tr.className = 'sel'; tr.setAttribute('aria-selected', 'true'); }
       cols.forEach(function (c) {
-        var td = el('td', c[0] === 'rank' ? 'num rk' : c[0] === 'name' ? 'nm' : 'num', cell(p, c[0]));
-        if (c[0] === 'name' && p.rr) td.append(el('span', 'tag', 'RR'));
+        var td;
+        if (c[0] === 'name') {
+          td = el('td', 'nm'); var inner = el('span', 'in'); inner.append(avatar(p.name, 28), document.createTextNode(p.name));
+          if (p.rr) inner.append(el('span', 'tag', 'RR'));
+          td.append(inner);
+        } else td = el('td', c[0] === 'rank' ? 'num rk' : 'num', cell(p, c[0]));
         tr.append(td);
       });
       tr.addEventListener('click', function () { select(p.name, true); });
@@ -584,10 +678,19 @@ footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 32px; color: var(--m
       ub.name + ' (would rank #' + ub.rank + ' among batters) and ' + uw.name + ' (#' + uw.rank + ' among bowlers).'));
     how.append(el('p', null, M.picks));
     how.append(el('p', 'small', M.data_note));
+    var cr = $('credits');
+    Object.keys(PH).sort().forEach(function (n) {
+      var c = PH[n], li = el('li'), src = el('a', null, 'photo'); src.href = c.source; src.rel = 'noopener'; src.target = '_blank';
+      li.append(document.createTextNode(n + ': '), src, document.createTextNode(' by ' + c.artist + ', '));
+      if (c.license_url) { var lic = el('a', null, c.license); lic.href = c.license_url; lic.rel = 'noopener'; lic.target = '_blank'; li.append(lic); }
+      else li.append(document.createTextNode(c.license));
+      li.append(document.createTextNode(', cropped.'));
+      cr.append(li);
+    });
   })();
 
   // ---------- wiring ----------
-  function renderAll() { hideTip(); drawLead(); drawScat(); drawRR(); drawSens(); drawProfile(); drawTable(); }
+  function renderAll() { hideTip(); drawCards(); drawLead(); drawScat(); drawRR(); drawSens(); drawProfile(); drawTable(); }
   document.querySelectorAll('.seg button').forEach(function (b) { b.addEventListener('click', function () { setSide(b.dataset.side); }); });
   $('q').addEventListener('input', function (e) { state.q = e.target.value; drawTable(); });
   $('q').addEventListener('keydown', function (e) {
